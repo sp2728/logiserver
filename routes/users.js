@@ -35,15 +35,18 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body)
   User.create(req.body, (err, user) => {
     if (err) {
       next(err);
     }
-    else {
+    else if(user) {
       res.json({ success: true, status: 'Registration Successful!' });
     }
+    else{
+      res.json({ success: false, status: 'Registration Unsuccessful!' });
+    }
   })
-  res.json({ success: false, status: 'Registration Unsuccessful!' });
 });
 
 router.get('/profile/:username', (req, res, next) => {
